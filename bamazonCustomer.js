@@ -50,14 +50,15 @@ function buyItems() {
                 // console.log(answer.quantity)
                 // console.log(JSON.stringify(res[answer.id-1].stock_quantity));
                 let index = answer.id - 1;
-                let result = res[index];
+                console.log(index);
+                
                 if (answer.quantity < JSON.stringify(res[index].stock_quantity)) {
                     let newQuantity = res[index].stock_quantity - answer.quantity;
                     // console.log(newQuantity)
                     console.log("Great, there are enough items!")
                     connection.query(`UPDATE bamazon.products
                     SET stock_quantity = ${newQuantity}
-                    WHERE item_id = 1`, (err, res) => {
+                    WHERE item_id = ${index}`, (err, res) => {
                         if (err) throw err;
                     })
                     connection.query("SELECT * FROM bamazon.products", (err, res) => {
@@ -73,7 +74,7 @@ function buyItems() {
                 }
                 else (console.log("Please enter a quantity"));
                 // connection.end();
-                
+
             });
 
     })
