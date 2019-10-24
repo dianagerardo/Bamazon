@@ -27,11 +27,12 @@ function buyItems() {
         // Show the products table
         // console.table(res);
         // console.log(res[0].product_name, res[0].price);
-        function itemList() {
-            for (let i = 0; i < res.length; i++) {
-                console.log(res[i].product_name, res[i].price)
-            }
-        }
+
+        // function itemList() {
+        //     for (let i = 0; i < res.length; i++) {
+        //         console.log(res[i].product_name, res[i].price)
+        //     }
+        // }
         console.log(`Here are the items available for sale:`);
         console.table(res);
         // Ask customer what they want to buy
@@ -49,22 +50,26 @@ function buyItems() {
                 // console.log(answer.id)
                 // console.log(answer.quantity)
                 // console.log(JSON.stringify(res[answer.id-1].stock_quantity));
+                let itemID = answer.id;
                 let index = answer.id - 1;
-                console.log(index);
-                
+                // console.log(index);
+                console.log(`You are purchasing ${res[index].product_name}`);
+
                 if (answer.quantity < JSON.stringify(res[index].stock_quantity)) {
                     let newQuantity = res[index].stock_quantity - answer.quantity;
                     // console.log(newQuantity)
                     console.log("Great, there are enough items!")
                     connection.query(`UPDATE bamazon.products
                     SET stock_quantity = ${newQuantity}
-                    WHERE item_id = ${index}`, (err, res) => {
+                    WHERE item_id = ${itemID}`, (err, res) => {
                         if (err) throw err;
                     })
                     connection.query("SELECT * FROM bamazon.products", (err, res) => {
                         if (err) throw err;
                         console.table(res);
                     })
+                    let purchaseCost = answer.quantity * res[index].price;
+                    console.log(`The total cost of your purchase is $${purchaseCost}`);
 
                     connection.end();
                 }
