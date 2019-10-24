@@ -49,10 +49,15 @@ function manageItems() {
                 break;
             }
         })
-        connection.end();
 }
 
 function forSale(){
+    connection.query("SELECT * FROM bamazon.products", (err, res) => {
+        if (err) throw err;
+        console.log(`Here are the items available for sale:`);
+        console.table(res);
+        connection.end();
+    })
 
 }
 
@@ -65,5 +70,5 @@ function addInventory(){
 }
 
 function addProduct(){
-    
+
 }
