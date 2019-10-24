@@ -61,7 +61,26 @@ function forSale(){
 
 }
 
+function itemList() {
+    connection.query("SELECT * FROM bamazon.products", (err, res) => {
+        for (let i = 0; i < res.length; i++) {
+            // console.log(res[i].product_name, res[i].price)
+            if(res[i].stock_quantity <5){
+                console.table(res[i])
+            }
+            else("All items are in stock!")
+        }
+    })
+    }
+
 function lowInventory(){
+    connection.query("SELECT * FROM bamazon.products", (err, res) => {
+        if (err) throw err;
+        console.log(`Here are the items that have an inventory below 5 items:`);
+        itemList();
+        // console.table(res);
+        connection.end();
+    })
 
 }
 
