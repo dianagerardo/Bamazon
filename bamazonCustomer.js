@@ -26,7 +26,19 @@ function buyItems(){
         if(err) throw err;
         // Show the products table
         console.table(res);
+        console.log(res[0].product_name, res[0].price)
         // Ask customer what they want to buy
+        // inquirer.prompt({
+        //     name: "buy",
+        //     type: "list",
+        //     message:"What item would you like to buy? Please select the item ID",
+        //     choices: [
+                
+        //     ]
+        // })
+        // .then((answer) => {
+            
+        // })
         connection.end();
     })
 
