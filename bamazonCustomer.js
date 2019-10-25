@@ -85,17 +85,3 @@ function buyItems() {
     })
 
 }
-
-function howMany() {
-    connection.query("SELECT * FROM bamazon.products", (err, res) => {
-        if (err) throw err;
-        inquirer.prompt({
-            name: "quantity",
-            type: "input",
-            message: "How many of this item would you like to buy?",
-        })
-            .then((answer) => {
-                console.log(answer.quantity)
-            })
-    })
-}
