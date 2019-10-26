@@ -117,8 +117,10 @@ function addInventory() {
                 connection.query("SELECT * FROM bamazon.products", (err, res) => {
                     if (err) throw err;
                     console.table(res);
+                    connection.end();
                 })
             })
+            
     })
 
 
